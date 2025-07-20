@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Leaderboard</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      background: black;
+    }
+
+    #leaderboardBtn {
+      padding: 10px 20px;
+      background-color: #3498db;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    #leaderboardBtn:hover {
+      background-color: #2980b9;
+    }
+
+    ul {
+      list-style-type: none;
+      padding: 0;
+      margin-top: 20px;
+    }
+
+    li {
+      background: white;
+      padding: 12px 16px;
+      margin-bottom: 8px;
+      border-left: 5px solid #3498db;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+    .name {
+      font-weight: bold;
+    }
+    .email{
+      color: #555;
+      margin-left: 10px;
+    }
+
+    .expense {
+      float: right;
+      color: #555;
+    }
+  </style>
+</head>
+<body>
+
+  <button id="leaderboardBtn">Show Leaderboard</button>
+  <button onclick="window.location.href='index.html'" style="margin-left: 10px; padding: 10px 20px; background-color: #2ecc71; color: white; border: none; border-radius: 5px; cursor: pointer;">Go to Home</button>
+  <ul id="leaderboardList"></ul>
+
+  <script>
+    
+    if (localStorage.getItem("isLoggedIn")==="false") {
+  window.location.href = "index.html";
+}
+
+    const button = document.getElementById("leaderboardBtn");
+    const list = document.getElementById("leaderboardList");
+
+    const user = JSON.parse(localStorage.getItem("user"))
+    const userId = user.id;
+
+    button.addEventListener("click", async () => {
+      try {
+        const res = await fetch(`https://expense-backend-7df0.onrender.com/api/users/leaderboard/${userId}`,{
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`
+          }
+        });
+        const data = await res.json();
+        if (!res.ok) {
+          throw new Error(data.message || "Failed to fetch leaderboard");
+        }
+
+         // Clear previous leaderboard data
+        list.innerHTML = ""; // Clear previous data
+         console.log(data);
+         
+        if (Array.isArray(data)) {
+          data.forEach((user, index) => {
+            const li = document.createElement("li");
+            li.innerHTML = `<span class="name">${index + 1}. ${user.name}</span> 
+                       <span class="email"> ${user.email}</span> 
+                            <span class="expense">₹${user.totalExpenses || 0}</span>`;
+            list.appendChild(li);
+          });
+        } else {
+          list.innerHTML = `<li>${data}</li>`; // Handle errors from API like "Not a premium user"
+        }
+ 
+      } catch (err) {
+        list.innerHTML = `<li>Error fetching leaderboard</li>`;
+        console.error(err);
+      }
+    });
+  </script>
+
+</body>
+</html>

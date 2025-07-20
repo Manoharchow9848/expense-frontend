@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cashfree Checkout Integration</title>
+    <script src="https://sdk.cashfree.com/js/v3/cashfree.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <style>
+        body {
+            background: black;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            min-height: 100vh;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .payment-container {
+            background: #fff;
+            padding: 2.5rem 2rem;
+            border-radius: 16px;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+            max-width: 350px;
+            width: 100%;
+            text-align: center;
+        }
+        .payment-container h2 {
+            margin-bottom: 1.2rem;
+            color: #22223b;
+            font-weight: 600;
+        }
+        .payment-container p {
+            color: #4a4e69;
+            margin-bottom: 2rem;
+            font-size: 1.05rem;
+        }
+        #renderBtn {
+            background: linear-gradient(90deg, #4f8cff 0%, #38b6ff 100%);
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            padding: 0.9rem 2.2rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+            box-shadow: 0 2px 8px rgba(79,140,255,0.08);
+        }
+        #renderBtn:hover {
+            background: linear-gradient(90deg, #38b6ff 0%, #4f8cff 100%);
+        }
+    </style>
+</head>
+<body>
+    <div class="payment-container">
+        <h2>Payment Checkout</h2>
+        <p style="font-size:1.3rem; color:#22223b; font-weight:500; margin-bottom:1.5rem;">
+            Amount: <span style="color:#4f8cff; font-weight:700;">₹599</span>
+        </p>
+        <p>Click below to open the checkout page in current tab</p>
+        <button id="renderBtn">Pay Now</button>
+    </div>
+    <script src="js/payment.js"></script>
+</body>
+</html>

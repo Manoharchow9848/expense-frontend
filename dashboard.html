@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Income & Expenses Dashboard</title>
+  <link rel="stylesheet" href="css/dashboard.css">
+</head>
+<body>
+  <div class="container">
+    <div class="dashboard-actions">
+      <button onclick="window.location.href='addExpense.html'">Add Expense</button>
+      <button onclick="window.location.href='addIncome.html'">Add Income</button>
+      <button onclick="window.location.href='index.html'">Go to Home</button>
+    </div>
+    <div class="section" id="income-section">
+      <h2>Top Income</h2>
+      <ul id="income-list"></ul>
+      <div class="pagination">
+        <button id="income-prev">Prev</button>
+        <button id="income-next">Next</button>
+      </div>
+    </div>
+    <div class="section" id="expense-section">
+      <h2>Expenses</h2>
+      <ul id="expense-list"></ul>
+      <div class="pagination">
+        <button id="expense-prev">Prev</button>
+        <button id="expense-next">Next</button>
+      </div>
+    </div>
+  </div>
+  <script src="js/dashboard.js"></script>
+  </script>
+</body>
+</html></div>

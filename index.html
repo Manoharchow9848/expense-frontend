@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Welcome | Expense Tracker</title>
+  <link rel="stylesheet" href="css/style.css">
+   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+<body>
+
+  <div class="landing-container">
+   
+    <img src="https://cdn-icons-png.flaticon.com/512/833/833472.png" alt="App Logo" class="landing-logo" />
+    <h1>Expense Tracker</h1>
+    <p>Track your income & expenses easily and securely</p>
+             
+    <div id="landing-buttons" class="landing-buttons">
+      <button onclick="redirectTo('login')">Login</button>
+      <button onclick="redirectTo('signup')">Sign Up</button>
+    </div>
+  </div>
+
+  <script>
+ 
+  async function refreshUserData() {
+    const token = localStorage.getItem("token");
+
+    if (!token || !localStorage.getItem("paymentSessionId")) return;
+
+    try {
+      const response = await axios.get('https://expense-backend-7df0.onrender.com/api/users/profile', {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        }
+      });
+
+      localStorage.setItem("user", JSON.stringify(response.data));
+      localStorage.removeItem("paymentSessionId") // prevent reload loop
+      location.reload();
+    } catch (error) {
+      console.error("Unable to refresh user data", error);
+    }
+  }
+
+ if(localStorage.getItem("paymentSessionId")){
+           refreshUserData();
+ }
+
+  
+
+
+
+
+    if (localStorage.getItem("isLoggedIn") === "true") {
+      
+        const div = document.getElementById('landing-buttons');
+        div.innerHTML="";
+        let dbtn  = document.createElement("button");
+        dbtn.onclick= () => redirectTo('dashboard');
+        dbtn.textContent="Dashboard"
+        let addbtn  = document.createElement("button");
+        addbtn.onclick= () => redirectTo('addExpense');
+        addbtn.textContent="Add Expense"
+        let addIncomeBtn  = document.createElement("button"); 
+        addIncomeBtn  .onclick= () => redirectTo('addIncome'); 
+        addIncomeBtn  .textContent="Add Income"
+        let leadeboard = document.createElement("button");
+        leadeboard.innerHTML="Leaderboard";
+        leadeboard.onclick= () => redirectTo('leaderboard');
+        let report= document.createElement("button"); 
+        report.innerHTML="Generate Report"; 
+        report.onclick= () => redirectTo('report');
+         let del  = document.createElement("button");
+        del.onclick= () => logout();
+        const user = JSON.parse(localStorage.getItem("user"));
+        const premium = user.isPremium;
+        del.textContent="Logout"
+        div.appendChild(dbtn)
+        div.appendChild(addbtn)
+        div.appendChild(addIncomeBtn)
+        
+       premium && div.appendChild(leadeboard)
+       premium && div.appendChild(report)
+        if(premium){
+            const premiumMsg = document.createElement("div");
+            premiumMsg.textContent = "💎👑✨💎ᴠɪᴘ You are a premium user 💎👑✨💎ᴠɪᴘ";
+            premiumMsg.className = "premium-message";
+            div.parentNode.insertBefore(premiumMsg, div);
+        }else{
+           const premiumbtn = document.createElement("button");
+            premiumbtn.textContent = "Buy Premium Feautures";
+            premiumbtn.onclick = () => redirectTo('payment');
+            div.appendChild(premiumbtn);
+        }
+        div.appendChild(del)
+        
+
+
+
+
+    }
+
+    function redirectTo(page) {
+      window.location.href = `${page}.html`;
+    }
+    function logout(){
+      localStorage.setItem("isLoggedIn","false");
+      localStorage.removeItem("user")
+      localStorage.removeItem("token");
+      window.location.href="index.html"
+      
+    }
+  </script>
+
+</body>
+</html>

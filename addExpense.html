@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Add Expense</title>
+  <link rel="stylesheet" href="css/addExpense.css" />
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+<body>
+
+  <div class="expense-form-container">
+    <h2>Add New Expense</h2>
+    <form id="expenseForm">
+      <input type="text" id="name" placeholder="Expense Name" required />
+      <input type="number" id="price" placeholder="Amount" required />
+      <select id="category" required>
+        <option value="">Select Category</option>
+        <option value="food">Food</option>
+        <option value="skin">Skin</option>
+        <option value="electronics">Electronics</option>
+      </select>
+      <button type="submit">Add Expense</button>
+    </form>
+    <button onclick="window.location.href='dashboard.html'" class="see-expenses-btn">See Expenses</button>
+    <div id="toast" class="toast"></div>
+
+  </div>
+
+  <script src="js/addExpense.js"></script>
+</body>
+</html>
