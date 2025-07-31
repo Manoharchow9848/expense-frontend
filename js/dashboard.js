@@ -1,10 +1,10 @@
 
-if (localStorage.getItem("isLoggedIn") === "fakse") {
+if (localStorage.getItem("isLoggedIn") === "false") {
   window.location.href = "login.html";
 }
 const user = JSON.parse(localStorage.getItem('user'));
     const userId = user.id;
-    const limit = 1;
+    const limit = 3;
 
    
     let incomePage = 1;
