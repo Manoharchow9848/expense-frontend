@@ -11,6 +11,7 @@ document.getElementById('downloadBtn').addEventListener('click', async () => {
 
     if (!res.ok) {
       throw new Error('Failed to download');
+      alert('You must be a premium user to download the report.');
     }
 
     const blob = await res.blob();
@@ -25,7 +26,7 @@ document.getElementById('downloadBtn').addEventListener('click', async () => {
     window.URL.revokeObjectURL(url);
 
   } catch (error) {
-    alert('Error downloading report');
+    alert('Error downloading report', error.message);
     console.error(error);
   }
 });
