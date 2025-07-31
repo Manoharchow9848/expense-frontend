@@ -10,7 +10,7 @@ document.getElementById('downloadBtn').addEventListener('click', async () => {
     });
 
     if (!res.ok) {
-      throw new Error('Failed to download');
+      
       alert('You must be a premium user to download the report.');
     }
 
